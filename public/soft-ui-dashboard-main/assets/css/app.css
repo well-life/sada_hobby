@@ -1,0 +1,35 @@
+:root {
+    --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
+}
+
+body {
+    background: #111 !important;
+}
+
+.card {
+    background: #222;
+    border: 1px solid #dd2476;
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 2rem;
+    height: 400px;
+    font-size: 8px;
+}
+
+a{
+    color: #000000;
+}
+
+.btn {
+    border: 5px solid;
+    border-image-slice: 1;
+    color: #000000;
+    border-image-source: var(--gradient) !important;
+    text-decoration: none;
+}
+
+.btn:hover,
+.btn:focus {
+    -webkit-text-fill-color: #000000 !important;
+    box-shadow: #222 1px 0 10px;
+    text-decoration: underline;
+}
