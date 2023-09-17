@@ -48,18 +48,24 @@ Route::get('transaksi/delete/{id}', [LaporanController::class, 'destroy'])->midd
 
 
 Route::get('/forecasting', function () {
-    $client = new \GuzzleHttp\Client();
+    try {
+        $client = new \GuzzleHttp\Client();
 
-    // melakukan request GET ke API Flask
-    // $response = $client->request('GET', 'http://192.168.225.77:5000/prediksi');
-    $response = $client->request('GET', 'http://127.0.0.1:5000/prediksi');
+        // Mencoba melakukan request GET ke API Flask
+        $response = $client->request('GET', 'http://127.0.0.1:5000/prediksi');
 
-    // mengambil data JSON dari response
-    $data = json_decode($response->getBody(), true);
+        // Mengambil data JSON dari response
+        $data = json_decode($response->getBody(), true);
 
-    return view('forecasting/index', ['title' => 'Forecasting', 'data' => $data]);
+        return view('forecasting/index', ['title' => 'Forecasting', 'data' => $data]);
+    } catch (\GuzzleHttp\Exception\ConnectException $e) {
+        // Mengatasi kesalahan koneksi ke server Flask
+        return view('error.server-not-found');
+    } catch (\Exception $e) {
+        // Mengatasi kesalahan umum lainnya
+        return view('error.generic-error');
+    }
 })->middleware('auth');
-
 Route::get('forecasting/detail-hasil', function () {
     $client = new \GuzzleHttp\Client();
 
